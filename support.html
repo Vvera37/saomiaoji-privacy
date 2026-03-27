@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>扫描鸡 · 用户支持</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+      background: #f5f7fa;
+      color: #1d1d1f;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #007AFF, #0055CC);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; }
+    .logo-text { font-size: 18px; font-weight: 600; }
+
+    main {
+      flex: 1;
+      max-width: 640px;
+      margin: 48px auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #6e6e73;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .card p {
+      font-size: 15px;
+      color: #3d3d3f;
+      line-height: 1.7;
+    }
+    .card a {
+      color: #007AFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card a:hover { text-decoration: underline; }
+
+    .faq-item { margin-bottom: 20px; }
+    .faq-item:last-child { margin-bottom: 0; }
+    .faq-q {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .faq-a {
+      font-size: 15px;
+      color: #3d3d3f;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+      color: #aeaeb2;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+      <circle cx="12" cy="13" r="3"/>
+    </svg>
+  </div>
+  <span class="logo-text">扫描鸡</span>
+</header>
+
+<main>
+  <h1>用户支持</h1>
+  <p class="subtitle">遇到问题？我们很乐意帮助您。</p>
+
+  <!-- 联系我们 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background:#EBF4FF;">✉️</div>
+      联系我们
+    </div>
+    <p>
+      如有任何问题、建议或反馈，请发送邮件至：<br/>
+      <a href="mailto:support@vmingstudio.com">support@vmingstudio.com</a>
+    </p>
+    <p style="margin-top:10px; color:#6e6e73; font-size:14px;">
+      我们通常在 1-2 个工作日内回复。
+    </p>
+  </div>
+
+  <!-- 常见问题 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background:#F0FFF4;">❓</div>
+      常见问题
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">识别结果不准确怎么办？</div>
+      <div class="faq-a">识别结果页支持直接编辑修改。如长期识别效果较差，请确认图片清晰、光线充足，或尝试手写体 AI 识别模式。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">导出的 Word 文件在哪里？</div>
+      <div class="faq-a">导出成功后会自动弹出分享面板。同时，文件会保存在「文件」App → 我的 iPhone → 扫描鸡 目录下，可随时查看。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">如何取消订阅？</div>
+      <div class="faq-a">前往 iPhone「设置」→ 点击顶部 Apple ID → 订阅 → 找到「扫描鸡」→ 取消订阅。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">数据会上传到服务器吗？</div>
+      <div class="faq-a">印刷体识别在设备本地完成，不上传任何数据。手写体 AI 识别需上传图片进行处理，处理完成后不作留存。</div>
+    </div>
+  </div>
+
+  <!-- 隐私政策 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background:#FFF0F0;">🔒</div>
+      隐私与条款
+    </div>
+    <p>
+      <a href="/privacy">隐私政策</a>
+      &nbsp;·&nbsp;
+      <a href="/terms">用户协议</a>
+    </p>
+  </div>
+</main>
+
+<footer>
+  © 2026 VMing Studio · 粤ICP备XXXXXXXX号
+</footer>
+
+</body>
+</html>
