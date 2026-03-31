@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vming Studio — 做好用的工具软件</title>
-  <meta name="description" content="vming Studio 是一支独立开发团队，专注于为每个人打造简单好用的工具软件。" />
+  <title>vming Studio — 做让人爱不释手的工具</title>
+  <meta name="description" content="vming Studio 是一支独立开发团队。我们相信，一个真正好用的工具，能改变一个人一天的节奏。" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,16 +16,16 @@
       --card: #FFFFFF;
       --text: #1C1C1E;
       --secondary: #6E6E73;
-      --border: rgba(0,0,0,0.08);
+      --border: rgba(0,0,0,0.07);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #000000;
         --card: #1C1C1E;
-        --text: #FFFFFF;
+        --text: #F5F5F7;
         --secondary: #98989D;
-        --border: rgba(255,255,255,0.1);
+        --border: rgba(255,255,255,0.09);
       }
     }
 
@@ -39,242 +39,277 @@
 
     /* ── HEADER ── */
     header {
-      text-align: center;
-      padding: 80px 24px 64px;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 96px 24px 72px;
     }
     .studio-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 100px;
       padding: 6px 16px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
+      letter-spacing: 0.03em;
       color: var(--secondary);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
-    .studio-badge span { font-size: 16px; }
+
     header h1 {
-      font-size: clamp(32px, 6vw, 52px);
+      font-size: clamp(36px, 6vw, 56px);
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 20px;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+      margin-bottom: 24px;
     }
     header h1 em {
       font-style: normal;
-      background: linear-gradient(135deg, var(--blue), var(--orange));
+      background: linear-gradient(135deg, var(--blue) 20%, var(--orange) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     header p {
-      font-size: 17px;
+      font-size: 18px;
       color: var(--secondary);
-      max-width: 520px;
-      margin: 0 auto;
+      max-width: 480px;
+      line-height: 1.8;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 720px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+      height: 1px;
+      background: var(--border);
     }
 
     /* ── PRODUCT SECTION ── */
     .products {
       max-width: 720px;
       margin: 0 auto;
-      padding: 0 24px 100px;
+      padding: 0 24px 80px;
     }
     .section-label {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--secondary);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
     }
 
     .product-card {
       background: var(--card);
-      border-radius: 20px;
+      border-radius: 24px;
       border: 1px solid var(--border);
       overflow: hidden;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
     }
+
     .product-hero {
-      background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-      padding: 36px 36px 32px;
+      background: linear-gradient(140deg, #007AFF 0%, #5856D6 100%);
+      padding: 40px 40px 36px;
       color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-hero::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
     }
     .product-icon {
-      width: 72px;
-      height: 72px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
+      font-size: 52px;
       margin-bottom: 20px;
+      line-height: 1;
     }
     .product-name {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 700;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       margin-bottom: 8px;
     }
     .product-tagline {
       font-size: 16px;
-      opacity: 0.85;
+      opacity: 0.8;
+      font-weight: 400;
     }
 
     .product-body {
-      padding: 28px 36px 32px;
+      padding: 32px 40px 36px;
     }
+    @media (max-width: 520px) {
+      .product-hero, .product-body { padding-left: 24px; padding-right: 24px; }
+    }
+
+    .product-desc {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
     .features {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: 32px;
     }
-    @media (max-width: 500px) {
+    @media (max-width: 480px) {
       .features { grid-template-columns: 1fr; }
-      .product-hero, .product-body { padding-left: 24px; padding-right: 24px; }
     }
     .feature-item {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 14px;
-      color: var(--text);
     }
-    .feature-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    .feature-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
     .feature-text strong {
       display: block;
-      font-weight: 600;
       font-size: 14px;
+      font-weight: 600;
       margin-bottom: 2px;
     }
     .feature-text span {
-      color: var(--secondary);
       font-size: 12px;
+      color: var(--secondary);
     }
 
     /* App Store Button */
     .appstore-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       background: var(--text);
       color: var(--bg);
       text-decoration: none;
-      padding: 13px 24px;
-      border-radius: 14px;
+      padding: 14px 26px;
+      border-radius: 16px;
       font-size: 15px;
       font-weight: 600;
-      transition: opacity 0.15s;
+      transition: transform 0.15s, opacity 0.15s;
     }
-    .appstore-btn:hover { opacity: 0.8; }
+    .appstore-btn:hover { opacity: 0.82; transform: translateY(-1px); }
+    .appstore-btn:active { transform: scale(0.97); }
     .appstore-btn svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
     .appstore-meta { line-height: 1.3; }
-    .appstore-meta small { display: block; font-size: 11px; font-weight: 400; opacity: 0.7; }
-
-    .coming-soon {
-      display: inline-block;
-      margin-left: 12px;
-      font-size: 12px;
-      color: var(--secondary);
-      vertical-align: middle;
-    }
+    .appstore-meta small { display: block; font-size: 11px; font-weight: 400; opacity: 0.65; }
 
     /* ── ABOUT ── */
     .about {
       max-width: 720px;
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 0 24px 96px;
     }
     .about-card {
       background: var(--card);
-      border-radius: 20px;
+      border-radius: 24px;
       border: 1px solid var(--border);
-      padding: 36px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      padding: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+    }
+    @media (max-width: 520px) {
+      .about-card { padding: 28px 24px; }
     }
     .about-card h2 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
     }
     .about-card p {
       font-size: 15px;
       color: var(--secondary);
-      line-height: 1.75;
+      line-height: 1.9;
     }
+    .about-card p + p { margin-top: 14px; }
 
     /* ── FOOTER ── */
     footer {
       text-align: center;
-      padding: 32px 24px 48px;
+      padding: 28px 24px 52px;
       font-size: 13px;
       color: var(--secondary);
       border-top: 1px solid var(--border);
     }
-    footer a { color: var(--secondary); text-decoration: none; }
+    footer a { color: var(--secondary); text-decoration: none; transition: color 0.15s; }
     footer a:hover { color: var(--blue); }
-    footer .links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; }
+    footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
   <header>
-    <div class="studio-badge">
-      <span>🛠</span> vming Studio
-    </div>
-    <h1>用好工具，<em>让事情更简单</em></h1>
-    <p>我们是一支独立开发团队，专注于为每个人打造简单、好用的工具软件。</p>
+    <div class="studio-badge">✦ &nbsp;vming Studio</div>
+    <h1>好工具，<br><em>让生活多一点从容</em></h1>
+    <p>
+      我们是一支小小的独立开发团队。<br />
+      我们相信，一个真正好用的工具，能改变一个人一天的节奏。
+    </p>
   </header>
+
+  <div class="divider"></div>
 
   <!-- PRODUCTS -->
   <section class="products">
-    <p class="section-label">我们的产品</p>
+    <p class="section-label">Products</p>
 
     <div class="product-card">
       <div class="product-hero">
         <div class="product-icon">🐔</div>
         <div class="product-name">扫描鸡</div>
-        <div class="product-tagline">智能 OCR · 拍照识字，一秒搞定</div>
+        <div class="product-tagline">拍一下，文字就出来了</div>
       </div>
       <div class="product-body">
+        <p class="product-desc">
+          有多少时间，花在了「把纸上的字变成电脑里的字」这件事上？<br />
+          扫描鸡想帮你把这件事缩短到一秒。
+        </p>
+
         <div class="features">
           <div class="feature-item">
             <span class="feature-icon">📷</span>
             <div class="feature-text">
-              <strong>拍照识字</strong>
-              <span>印刷体秒识别，手写体 AI 加持</span>
+              <strong>智能识字</strong>
+              <span>印刷体闪电识别，手写体 AI 加持</span>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">📄</span>
             <div class="feature-text">
               <strong>图片转 PDF</strong>
-              <span>多张拍摄，一键合并</span>
+              <span>多张拍摄，一键合并成文件</span>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">📝</span>
             <div class="feature-text">
               <strong>PDF 转 Word</strong>
-              <span>精准还原排版，可直接编辑</span>
+              <span>精准还原排版，拿来就能改</span>
             </div>
           </div>
           <div class="feature-item">
-            <span class="feature-icon">✨</span>
+            <span class="feature-icon">🚀</span>
             <div class="feature-text">
-              <strong>无水印导出</strong>
-              <span>专业呈现，会员专属</span>
+              <strong>干净导出</strong>
+              <span>无水印，文件是你的</span>
             </div>
           </div>
         </div>
@@ -284,7 +319,7 @@
             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
           </svg>
           <div class="appstore-meta">
-            <small>下载 App</small>
+            <small>免费下载</small>
             App Store
           </div>
         </a>
@@ -295,12 +330,16 @@
   <!-- ABOUT -->
   <section class="about">
     <div class="about-card">
-      <h2>👋 关于 vming Studio</h2>
+      <h2>我们是谁</h2>
       <p>
-        我们是一支小而专注的独立开发团队。<br />
-        我们相信，好用的工具可以让每个人的日常更高效。<br /><br />
-        扫描鸡是我们的第一款产品，未来还有更多工具正在路上。<br />
-        如果你有好的想法，欢迎与我们联系。
+        vming Studio 是一支由产品人和工程师组成的独立开发团队。
+        我们没有大公司的资源，但我们有一件事想做好——
+        把那些日常用得上、却一直不够顺手的小事，用软件解决掉。
+      </p>
+      <p>
+        扫描鸡是我们迈出的第一步。未来还有更多工具正在路上。<br />
+        如果你有好的想法，或者只是想说声「这个 App 还不错」，
+        都欢迎给我们发邮件。
       </p>
     </div>
   </section>
@@ -312,7 +351,7 @@
       <a href="/terms.html">Terms of Use</a>
       <a href="/support.html">Support</a>
     </div>
-    <p>© 2025 vming Studio. All rights reserved.</p>
+    <p>© 2025 vming Studio · Built with ❤️ by a small team</p>
   </footer>
 
 </body>
