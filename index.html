@@ -3,356 +3,465 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vming Studio — 做让人爱不释手的工具</title>
-  <meta name="description" content="vming Studio 是一支独立开发团队。我们相信，一个真正好用的工具，能改变一个人一天的节奏。" />
+  <title>vming Studio · 好工具，让生活多一点从容</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --blue: #007AFF;
-      --blue-dark: #0055CC;
-      --orange: #FF9500;
-      --bg: #F2F2F7;
-      --card: #FFFFFF;
-      --text: #1C1C1E;
-      --secondary: #6E6E73;
-      --border: rgba(0,0,0,0.07);
+      --bg: #09090b; --surface: #111113; --surface-2: #18181c;
+      --border: rgba(255,255,255,0.06); --border-bright: rgba(255,255,255,0.12);
+      --text: #eeeae3; --text-2: rgba(238,234,227,0.52); --text-3: rgba(238,234,227,0.26);
+      --accent: #4a9eff; --gold: #c8a96e; --r: 18px;
     }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #000000;
-        --card: #1C1C1E;
-        --text: #F5F5F7;
-        --secondary: #98989D;
-        --border: rgba(255,255,255,0.09);
-      }
-    }
-
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', 'Noto Serif SC', sans-serif;
+      font-size: 16px; line-height: 1.65;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.45;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .glow-a {
+      position: fixed; width: 700px; height: 700px; pointer-events: none; z-index: 0;
+      background: radial-gradient(circle, rgba(74,158,255,0.07) 0%, transparent 70%);
+      top: -200px; left: -200px; animation: driftA 18s ease-in-out infinite alternate;
+    }
+    .glow-b {
+      position: fixed; width: 500px; height: 500px; pointer-events: none; z-index: 0;
+      background: radial-gradient(circle, rgba(200,169,110,0.055) 0%, transparent 70%);
+      bottom: -100px; right: -100px; animation: driftB 22s ease-in-out infinite alternate;
+    }
+    @keyframes driftA { from { transform: translate(0,0); } to { transform: translate(80px, 60px); } }
+    @keyframes driftB { from { transform: translate(0,0); } to { transform: translate(-60px, -40px); } }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
-    /* ── HEADER ── */
-    header {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 96px 24px 72px;
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,9,11,0.82);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      transition: border-color 0.3s;
     }
-    .studio-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      color: var(--secondary);
-      margin-bottom: 32px;
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 32px;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #2277ff 0%, #0a4fcf 100%);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .nav-logo-text { font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+    .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-2); font-size: 14px;
+      padding: 6px 12px; border-radius: 8px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; font-weight: 500; }
+    .nav-cta:hover { opacity: 0.88; }
 
-    header h1 {
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.12;
-      margin-bottom: 24px;
+    /* HERO */
+    .hero { padding: 160px 0 100px; text-align: center; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface-2); border: 1px solid var(--border-bright);
+      border-radius: 100px; padding: 5px 16px 5px 10px;
+      margin-bottom: 36px; font-size: 13px; color: var(--text-2);
     }
-    header h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--blue) 20%, var(--orange) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite; flex-shrink: 0;
     }
-    header p {
-      font-size: 18px;
-      color: var(--secondary);
-      max-width: 480px;
-      line-height: 1.8;
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.75); } }
+    .hero h1 {
+      font-family: 'Instrument Serif', 'Noto Serif SC', serif;
+      font-size: clamp(46px, 7.5vw, 92px);
+      font-weight: 400; line-height: 1.06; letter-spacing: -0.03em; margin-bottom: 24px;
     }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 18px; color: var(--text-2);
+      max-width: 460px; margin: 0 auto 48px; line-height: 1.72; font-weight: 300;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 400; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: 12px; font-size: 15px; font-weight: 500;
+      text-decoration: none; padding: 12px 24px; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 0 1px rgba(74,158,255,0.3), 0 4px 20px rgba(74,158,255,0.25);
+    }
+    .btn-primary:hover {
+      background: #5aaaff;
+      box-shadow: 0 0 0 1px rgba(74,158,255,0.4), 0 8px 28px rgba(74,158,255,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-bright); }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.04); }
 
-    /* ── DIVIDER ── */
-    .divider {
-      max-width: 720px;
-      margin: 0 auto 56px;
-      padding: 0 24px;
-      height: 1px;
-      background: var(--border);
-    }
+    /* DIVIDER */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-bright), transparent); margin: 0 0 80px; }
+    .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 14px; font-weight: 500; }
 
-    /* ── PRODUCT SECTION ── */
-    .products {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
+    /* APP SECTION */
+    .apps-section { padding: 0 0 100px; }
+    .apps-header { margin-bottom: 48px; }
+    .apps-title {
+      font-family: 'Instrument Serif', 'Noto Serif SC', serif;
+      font-size: clamp(30px, 4vw, 46px); font-weight: 400;
+      letter-spacing: -0.025em; line-height: 1.12; margin-bottom: 14px;
     }
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 20px;
-    }
+    .apps-desc { font-size: 16px; color: var(--text-2); max-width: 460px; line-height: 1.72; font-weight: 300; }
 
-    .product-card {
-      background: var(--card);
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+    .app-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+      overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;
+      transition: border-color 0.3s, box-shadow 0.3s; position: relative;
     }
+    .app-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 24px;
+      background: radial-gradient(ellipse at top left, rgba(74,158,255,0.04) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .app-card:hover { border-color: var(--border-bright); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
 
-    .product-hero {
-      background: linear-gradient(140deg, #007AFF 0%, #5856D6 100%);
-      padding: 40px 40px 36px;
-      color: #fff;
+    .app-card-body { padding: 52px 48px; display: flex; flex-direction: column; justify-content: space-between; }
+    .app-icon { width: 72px; height: 72px; border-radius: 20px; overflow: hidden; margin-bottom: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .app-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .app-name { font-size: 28px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .app-tagline { font-size: 15px; color: var(--text-2); margin-bottom: 28px; line-height: 1.65; font-weight: 300; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+    .feature-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; }
+
+    .app-store-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--surface-2); border: 1px solid var(--border-bright);
+      border-radius: 12px; padding: 12px 20px;
+      text-decoration: none; color: var(--text); font-size: 14px; font-weight: 500;
+      transition: all 0.2s; width: fit-content;
+    }
+    .app-store-btn:hover { background: rgba(74,158,255,0.08); border-color: rgba(74,158,255,0.28); color: var(--accent); transform: translateY(-1px); }
+
+    /* PHONE */
+    .app-card-visual {
+      background: linear-gradient(145deg, #0c1219 0%, #0e1623 50%, #080f1a 100%);
+      position: relative; overflow: hidden; min-height: 420px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .app-card-visual::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 35% 35%, rgba(74,158,255,0.1) 0%, transparent 55%),
+                  radial-gradient(ellipse at 75% 75%, rgba(74,158,255,0.05) 0%, transparent 45%);
+    }
+    .phone-mock { position: relative; z-index: 1; width: 196px; }
+    .phone-shell {
+      background: linear-gradient(160deg, #1e2130 0%, #141724 100%);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 38px; padding: 14px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
       position: relative;
-      overflow: hidden;
     }
-    .product-hero::after {
-      content: '';
-      position: absolute;
-      right: -30px;
-      top: -30px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
+    .phone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 64px; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+    .phone-screen { background: #0a0e15; border-radius: 26px; overflow: hidden; padding: 26px 16px 18px; }
+    .screen-header { text-align: center; margin-bottom: 20px; }
+    .screen-icon-wrap { width: 44px; height: 44px; border-radius: 13px; margin: 0 auto 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .screen-icon-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .screen-title { font-size: 11px; font-weight: 600; color: #eee; letter-spacing: -0.01em; }
+    .screen-sub { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .scan-area {
+      background: rgba(74,158,255,0.05); border: 1.5px dashed rgba(74,158,255,0.25);
+      border-radius: 14px; height: 104px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; position: relative; overflow: hidden;
     }
-    .product-icon {
-      font-size: 52px;
-      margin-bottom: 20px;
-      line-height: 1;
+    .scan-line {
+      position: absolute; left: 8px; right: 8px; height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(74,158,255,0.9), transparent);
+      animation: scanMove 2.6s ease-in-out infinite;
     }
-    .product-name {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .product-tagline {
-      font-size: 16px;
-      opacity: 0.8;
-      font-weight: 400;
-    }
+    @keyframes scanMove { 0% { top: 12%; } 50% { top: 80%; } 100% { top: 12%; } }
+    .scan-icon { font-size: 24px; opacity: 0.28; }
+    .result-rows { display: flex; flex-direction: column; gap: 7px; }
+    .result-row { background: rgba(255,255,255,0.035); border-radius: 8px; padding: 7px 10px; display: flex; align-items: center; gap: 8px; }
+    .result-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .result-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+    .result-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), rgba(74,158,255,0.4)); border-radius: 3px; }
 
-    .product-body {
-      padding: 32px 40px 36px;
-    }
-    @media (max-width: 520px) {
-      .product-hero, .product-body { padding-left: 24px; padding-right: 24px; }
-    }
+    /* PHILOSOPHY */
+    .philosophy-section { padding: 0 0 100px; }
+    .phil-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .phil-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 32px 28px; transition: border-color 0.25s; }
+    .phil-card:hover { border-color: var(--border-bright); }
+    .phil-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 20px; }
+    .phil-icon.blue { background: rgba(74,158,255,0.1); }
+    .phil-icon.gold { background: rgba(200,169,110,0.1); }
+    .phil-icon.green { background: rgba(52,199,89,0.09); }
+    .phil-title { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .phil-body { font-size: 14px; color: var(--text-2); line-height: 1.72; font-weight: 300; }
 
-    .product-desc {
-      font-size: 15px;
-      color: var(--secondary);
-      line-height: 1.8;
-      margin-bottom: 28px;
+    /* ABOUT */
+    .about-section { padding: 0 0 100px; }
+    .about-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+      padding: 56px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
+    .about-headline { font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-size: clamp(26px, 3vw, 40px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 20px; }
+    .about-headline em { font-style: italic; color: var(--gold); }
+    .about-text { font-size: 15px; color: var(--text-2); line-height: 1.8; font-weight: 300; margin-bottom: 12px; }
+    .about-email { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--accent); text-decoration: none; margin-top: 10px; transition: opacity 0.2s; }
+    .about-email:hover { opacity: 0.7; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; }
+    .stat-num {
+      font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 400;
+      letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 13px; color: var(--text-3); }
 
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 32px;
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; position: relative; z-index: 1; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-copy { font-size: 13px; color: var(--text-3); }
+    .footer-links { display: flex; gap: 20px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-2); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .wrap { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 0 70px; }
+      .app-card { grid-template-columns: 1fr; }
+      .app-card-visual { min-height: 260px; }
+      .app-card-body { padding: 36px 28px; }
+      .phil-grid { grid-template-columns: 1fr; }
+      .about-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 480px) {
-      .features { grid-template-columns: 1fr; }
-    }
-    .feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .feature-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .feature-text strong {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-    .feature-text span {
-      font-size: 12px;
-      color: var(--secondary);
-    }
-
-    /* App Store Button */
-    .appstore-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      background: var(--text);
-      color: var(--bg);
-      text-decoration: none;
-      padding: 14px 26px;
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-    .appstore-btn:hover { opacity: 0.82; transform: translateY(-1px); }
-    .appstore-btn:active { transform: scale(0.97); }
-    .appstore-btn svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
-    .appstore-meta { line-height: 1.3; }
-    .appstore-meta small { display: block; font-size: 11px; font-weight: 400; opacity: 0.65; }
-
-    /* ── ABOUT ── */
-    .about {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px 96px;
-    }
-    .about-card {
-      background: var(--card);
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      padding: 40px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-    }
-    @media (max-width: 520px) {
-      .about-card { padding: 28px 24px; }
-    }
-    .about-card h2 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-    }
-    .about-card p {
-      font-size: 15px;
-      color: var(--secondary);
-      line-height: 1.9;
-    }
-    .about-card p + p { margin-top: 14px; }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 28px 24px 52px;
-      font-size: 13px;
-      color: var(--secondary);
-      border-top: 1px solid var(--border);
-    }
-    footer a { color: var(--secondary); text-decoration: none; transition: color 0.15s; }
-    footer a:hover { color: var(--blue); }
-    footer .links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
+      .hero h1 { font-size: 38px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="studio-badge">✦ &nbsp;vming Studio</div>
-    <h1>好工具，<br><em>让生活多一点从容</em></h1>
-    <p>
-      我们是一支小小的独立开发团队。<br />
-      我们相信，一个真正好用的工具，能改变一个人一天的节奏。
+<div class="glow-a"></div>
+<div class="glow-b"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">v</div>
+      <span class="nav-logo-text">vming Studio</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#apps">产品</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="https://apps.apple.com/app/id6760631793" class="nav-cta" target="_blank" rel="noopener">下载 App</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow fade-up">
+      <span class="hero-eyebrow-dot"></span>
+      独立开发者出品 · 用心打磨每一个工具
+    </div>
+    <h1 class="fade-up">好工具，<br>让生活<em>多一点从容</em></h1>
+    <p class="hero-sub fade-up">
+      我们相信，<strong>一个真正好用的工具</strong>，<br>
+      能让日常少一点摩擦，多一点时间做真正重要的事。
     </p>
-  </header>
+    <div class="hero-actions fade-up">
+      <a href="#apps" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2v12M8 14L4 10M8 14l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        探索产品
+      </a>
+      <a href="#about" class="btn btn-ghost">关于我们</a>
+    </div>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<!-- APPS -->
+<section class="apps-section" id="apps">
+  <div class="wrap">
+    <div class="divider"></div>
+    <div class="apps-header fade-up">
+      <div class="section-label">Products</div>
+      <h2 class="apps-title">我们的工具</h2>
+      <p class="apps-desc">每一个产品，都是从一个真实需求出发——那些日常用得上、却一直不够顺手的小事。</p>
+    </div>
 
-  <!-- PRODUCTS -->
-  <section class="products">
-    <p class="section-label">Products</p>
-
-    <div class="product-card">
-      <div class="product-hero">
-        <div class="product-icon">🐔</div>
-        <div class="product-name">扫描鸡</div>
-        <div class="product-tagline">拍一下，文字就出来了</div>
+    <div class="app-card fade-up">
+      <div class="app-card-body">
+        <div>
+          <div class="app-icon">
+            <img src="扫描鸡.png" alt="扫描鸡 App Icon" />
+          </div>
+          <div class="section-label" style="margin-bottom:8px;">Document Scanner</div>
+          <div class="app-name">扫描鸡</div>
+          <p class="app-tagline">拍一下，文字就出来了。<br>把「纸」变成「文件」，只需一秒。</p>
+          <ul class="feature-list">
+            <li>智能识字，印刷体闪电识别，手写体 AI 加持</li>
+            <li>图片转 PDF，多张拍摄，一键合并成文件</li>
+            <li>PDF 转 Word，精准还原排版，拿来就能改</li>
+            <li>干净导出，无水印，文件永远属于你</li>
+          </ul>
+        </div>
+        <a href="https://apps.apple.com/app/id6760631793" target="_blank" rel="noopener" class="app-store-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.2 1.3-2.18 3.87.03 3.02 2.65 4.03 2.68 4.04l-.05.16zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          App Store 免费下载
+        </a>
       </div>
-      <div class="product-body">
-        <p class="product-desc">
-          有多少时间，花在了「把纸上的字变成电脑里的字」这件事上？<br />
-          扫描鸡想帮你把这件事缩短到一秒。
-        </p>
 
-        <div class="features">
-          <div class="feature-item">
-            <span class="feature-icon">📷</span>
-            <div class="feature-text">
-              <strong>智能识字</strong>
-              <span>印刷体闪电识别，手写体 AI 加持</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">📄</span>
-            <div class="feature-text">
-              <strong>图片转 PDF</strong>
-              <span>多张拍摄，一键合并成文件</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">📝</span>
-            <div class="feature-text">
-              <strong>PDF 转 Word</strong>
-              <span>精准还原排版，拿来就能改</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">🚀</span>
-            <div class="feature-text">
-              <strong>干净导出</strong>
-              <span>无水印，文件是你的</span>
+      <div class="app-card-visual">
+        <div class="phone-mock">
+          <div class="phone-shell">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="screen-header">
+                <div class="screen-icon-wrap">
+                  <img src="扫描鸡.png" alt="icon" />
+                </div>
+                <div class="screen-title">扫描鸡</div>
+                <div class="screen-sub">文字识别 · PDF 导出</div>
+              </div>
+              <div class="scan-area">
+                <div class="scan-line"></div>
+                <span class="scan-icon">📄</span>
+              </div>
+              <div class="result-rows">
+                <div class="result-row">
+                  <div class="result-dot"></div>
+                  <div class="result-bar"><div class="result-bar-fill" style="width:88%"></div></div>
+                </div>
+                <div class="result-row">
+                  <div class="result-dot"></div>
+                  <div class="result-bar"><div class="result-bar-fill" style="width:72%"></div></div>
+                </div>
+                <div class="result-row">
+                  <div class="result-dot"></div>
+                  <div class="result-bar"><div class="result-bar-fill" style="width:94%"></div></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <a class="appstore-btn" href="https://apps.apple.com/app/id6760631793" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-          </svg>
-          <div class="appstore-meta">
-            <small>免费下载</small>
-            App Store
-          </div>
-        </a>
       </div>
     </div>
-  </section>
 
-  <!-- ABOUT -->
-  <section class="about">
-    <div class="about-card">
-      <h2>我们是谁</h2>
-      <p>
-        vming Studio 是一支由产品人和工程师组成的独立开发团队。
-        我们没有大公司的资源，但我们有一件事想做好——
-        把那些日常用得上、却一直不够顺手的小事，用软件解决掉。
-      </p>
-      <p>
-        扫描鸡是我们迈出的第一步。未来还有更多工具正在路上。<br />
-        如果你有好的想法，或者只是想说声「这个 App 还不错」，
-        都欢迎给我们发邮件。
-      </p>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="wrap">
+    <div class="divider"></div>
+    <div class="apps-header fade-up">
+      <div class="section-label">Philosophy</div>
+      <h2 class="apps-title">我们在意的事</h2>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="links">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Use</a>
-      <a href="/support.html">Support</a>
+    <div class="phil-grid">
+      <div class="phil-card fade-up">
+        <div class="phil-icon blue">✦</div>
+        <div class="phil-title">追求极致</div>
+        <p class="phil-body">每一个细节都值得被打磨。我们相信，优秀的工具不只是功能完备，而是在每一次使用中都能让你感受到——「对，就是这样」。</p>
+      </div>
+      <div class="phil-card fade-up" style="transition-delay:0.1s">
+        <div class="phil-icon gold">◎</div>
+        <div class="phil-title">以人为本</div>
+        <p class="phil-body">工具应该让生活更从容，而不是制造新的负担。我们从真实的使用场景出发，用软件解决那些「卡壳」的瞬间。</p>
+      </div>
+      <div class="phil-card fade-up" style="transition-delay:0.2s">
+        <div class="phil-icon green">⬡</div>
+        <div class="phil-title">独立精神</div>
+        <p class="phil-body">没有大公司的资源，但有不被稀释的初心。保持小团队，对自己的每一行代码负责，对每一位用户认真。</p>
+      </div>
     </div>
-    <p>© 2025 vming Studio · Built with ❤️ by a small team</p>
-  </footer>
+  </div>
+</section>
 
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="wrap">
+    <div class="divider"></div>
+    <div class="about-card fade-up">
+      <div>
+        <div class="section-label">About</div>
+        <h2 class="about-headline">一支小团队，<br>做<em>爱不释手</em>的工具</h2>
+        <p class="about-text">
+          vming Studio 是一支由产品人和工程师组成的独立开发团队。我们没有大公司的资源，但我们有一件事想做好——把那些日常用得上、却一直不够顺手的小事，用软件解决掉。
+        </p>
+        <p class="about-text">
+          扫描鸡是我们迈出的第一步。未来还有更多工具正在路上。如果你有好的想法，或者只是想说声「这个 App 还不错」，都欢迎来找我们。
+        </p>
+        <a href="mailto:hello@vmingstudio.com" class="about-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7L13.03 12.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          发封邮件给我们
+        </a>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">1+</div><div class="stat-label">款上线产品</div></div>
+        <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">在路上的想法</div></div>
+        <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">广告 · 水印</div></div>
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">用心程度</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2025 vming Studio · Built with ❤️ by a small team</span>
+    <ul class="footer-links">
+      <li><a href="https://vmingstudio.com/privacy.html" target="_blank" rel="noopener">隐私政策</a></li>
+      <li><a href="https://vmingstudio.com/terms.html" target="_blank" rel="noopener">使用条款</a></li>
+      <li><a href="https://vmingstudio.com/support.html" target="_blank" rel="noopener">支持</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.borderBottomColor = scrollY > 20 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)';
+  }, { passive: true });
+</script>
 </body>
 </html>
