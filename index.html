@@ -6,7 +6,7 @@
   <title>vming Studio · 好工具，让生活多一点从容</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@600;700&family=Cormorant+Garamond:wght@600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -240,7 +240,21 @@
     .footer-links a { font-size: 13px; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--text-2); }
 
-    /* ANIMATIONS */
+    /* LOGO VARIANTS */
+    .logo-v1 { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; letter-spacing: 0.04em; }
+    .logo-v2 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; letter-spacing: 0.02em; }
+    .logo-v3 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
+    .logo-red { color: #922B21; }
+    .logo-sienna { color: #A67C52; }
+    .logo-pick {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #17132280; border: 1px solid rgba(255,255,255,0.13);
+      backdrop-filter: blur(16px); border-radius: 16px;
+      padding: 16px 28px; z-index: 200; display: flex; gap: 32px; align-items: center;
+    }
+    .logo-pick-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .logo-pick-label { font-size: 11px; color: rgba(238,234,227,0.35); letter-spacing: 0.1em; text-transform: uppercase; }
+
     .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
@@ -271,7 +285,8 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <span class="nav-logo-text"><span class="cap">VM</span>ing<span class="cap">S</span>tudio</span>
+      <!-- 版本A: Cinzel 碑刻风 -->
+      <span id="logo-active" class="nav-logo-text logo-v1"><span class="logo-red">VM</span><span class="logo-sienna">ing</span><span class="logo-red">S</span><span class="logo-sienna">tudio</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#apps">产品</a></li>
@@ -520,5 +535,32 @@
     navbar.style.borderBottomColor = scrollY > 20 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)';
   }, { passive: true });
 </script>
+
+<!-- LOGO PICKER -->
+<div class="logo-pick">
+  <div class="logo-pick-item" onclick="setLogo('v1')">
+    <span style="font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:0.04em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
+    <span class="logo-pick-label">A · Cinzel</span>
+  </div>
+  <div style="width:1px;height:36px;background:rgba(255,255,255,0.1);"></div>
+  <div class="logo-pick-item" onclick="setLogo('v2')">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:0.02em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
+    <span class="logo-pick-label">B · Cormorant</span>
+  </div>
+  <div style="width:1px;height:36px;background:rgba(255,255,255,0.1);"></div>
+  <div class="logo-pick-item" onclick="setLogo('v3')">
+    <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:800;letter-spacing:-0.01em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
+    <span class="logo-pick-label">C · Playfair</span>
+  </div>
+</div>
+
+<script>
+  function setLogo(v) {
+    const el = document.getElementById('logo-active');
+    const classes = { v1: 'logo-v1', v2: 'logo-v2', v3: 'logo-v3' };
+    el.className = 'nav-logo-text ' + classes[v];
+  }
+</script>
+
 </body>
 </html>
