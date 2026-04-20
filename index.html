@@ -57,8 +57,7 @@
       height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo-text { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; font-family: 'DM Sans', sans-serif; }
-    .nav-logo-text .cap { color: #922B21; }
+    .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; letter-spacing: 0.02em; color: var(--text); }
     .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--text-2); font-size: 14px;
@@ -285,8 +284,7 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <!-- 版本A: Cinzel 碑刻风 -->
-      <span id="logo-active" class="nav-logo-text logo-v1"><span class="logo-red">VM</span><span class="logo-sienna">ing</span><span class="logo-red">S</span><span class="logo-sienna">tudio</span></span>
+      <span class="nav-logo-text"><span class="logo-red">VM</span><span class="logo-sienna">ing</span><span class="logo-red">S</span><span class="logo-sienna">tudio</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#apps">产品</a></li>
@@ -534,32 +532,6 @@
   window.addEventListener('scroll', () => {
     navbar.style.borderBottomColor = scrollY > 20 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)';
   }, { passive: true });
-</script>
-
-<!-- LOGO PICKER -->
-<div class="logo-pick">
-  <div class="logo-pick-item" onclick="setLogo('v1')">
-    <span style="font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:0.04em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
-    <span class="logo-pick-label">A · Cinzel</span>
-  </div>
-  <div style="width:1px;height:36px;background:rgba(255,255,255,0.1);"></div>
-  <div class="logo-pick-item" onclick="setLogo('v2')">
-    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:0.02em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
-    <span class="logo-pick-label">B · Cormorant</span>
-  </div>
-  <div style="width:1px;height:36px;background:rgba(255,255,255,0.1);"></div>
-  <div class="logo-pick-item" onclick="setLogo('v3')">
-    <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:800;letter-spacing:-0.01em;"><span style="color:#922B21">VM</span><span style="color:#A67C52">ing</span><span style="color:#922B21">S</span><span style="color:#A67C52">tudio</span></span>
-    <span class="logo-pick-label">C · Playfair</span>
-  </div>
-</div>
-
-<script>
-  function setLogo(v) {
-    const el = document.getElementById('logo-active');
-    const classes = { v1: 'logo-v1', v2: 'logo-v2', v3: 'logo-v3' };
-    el.className = 'nav-logo-text ' + classes[v];
-  }
 </script>
 
 </body>
