@@ -1,70 +1,466 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>扫描鸡 · 隐私政策</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>隐私政策 · 扫描鸡</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; line-height: 1.7; padding: 30px; max-width: 800px; margin: auto; color: #333; }
-    h1 { border-bottom: 2px solid #007AFF; padding-bottom: 10px; color: #222; }
-    h2 { color: #444; margin-top: 28px; }
-    ul { padding-left: 20px; }
-    p, li { margin: 8px 0; }
-    a { color: #007AFF; }
-    .updated { color: #888; font-size: 14px; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-soft: #444;
+      --ink-mute: #888;
+      --rule: #e0dbd3;
+      --bg: #faf8f5;
+      --bg-card: #fff;
+      --accent: #c0392b;
+      --accent-light: #fdf0ef;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      font-weight: 400;
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--ink);
+      padding: 40px 0 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(255,255,255,.02) 30px,
+        rgba(255,255,255,.02) 60px
+      );
+    }
+    .header-inner { position: relative; z-index: 1; }
+    .app-name {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .35em;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    header h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .05em;
+    }
+    .updated {
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .1em;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 24px 28px;
+      margin-bottom: 52px;
+    }
+    .toc-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .25em;
+      color: var(--ink-mute);
+      margin-bottom: 14px;
+    }
+    .toc ol {
+      padding-left: 20px;
+      columns: 2;
+      column-gap: 32px;
+    }
+    .toc li {
+      font-size: 13.5px;
+      line-height: 2;
+      color: var(--ink-soft);
+      break-inside: avoid;
+    }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    @media (max-width: 520px) { .toc ol { columns: 1; } }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 52px;
+      scroll-margin-top: 24px;
+    }
+    section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .sec-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    p { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+    li {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      line-height: 1.8;
+    }
+
+    /* ── Info cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .card-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* ── Highlight box ── */
+    .highlight {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    /* ── Table ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 13.5px;
+    }
+    .data-table th {
+      background: var(--ink);
+      color: #fff;
+      font-weight: 500;
+      padding: 10px 14px;
+      text-align: left;
+      letter-spacing: .05em;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink-soft);
+      vertical-align: top;
+    }
+    .data-table tr:nth-child(even) td { background: var(--bg); }
+    .yes { color: #27ae60; font-weight: 600; }
+    .no  { color: #e74c3c; font-weight: 600; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--rule);
+      font-size: 12.5px;
+      color: var(--ink-mute);
+      line-height: 2;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
   </style>
 </head>
 <body>
-  <h1>扫描鸡 隐私政策</h1>
-  <p class="updated">最后更新日期：2026年3月29日</p>
 
-  <h2>一、我们收集哪些信息</h2>
-  <p><strong>手机号码</strong>：用于注册和登录账号，我们会将您的手机号存储在服务器中用于身份验证。</p>
-  <p><strong>用户标识符（UID）</strong>：注册成功后，系统会为您生成一个唯一用户ID，用于管理您的账号和订阅状态。</p>
-  <p><strong>设备匿名标识符</strong>：未登录状态下，我们使用设备生成的匿名ID统计免费使用次数，不关联任何个人信息。</p>
+<header>
+  <div class="header-inner">
+    <div class="app-name">扫描鸡 · ScanJi</div>
+    <h1>隐私政策</h1>
+    <div class="updated">Privacy Policy &nbsp;·&nbsp; 最后更新：2026年4月20日</div>
+  </div>
+</header>
 
-  <h2>二、我们不收集的信息</h2>
-  <ul>
-    <li><strong>拍摄的图片</strong>：印刷体 OCR 识别在您的设备本地完成，图片不会上传至任何服务器。</li>
-    <li><strong>识别出的文字内容</strong>：文字识别结果仅保存在您的手机本地，不会上传。</li>
-    <li><strong>位置信息</strong>：我们不收集您的地理位置。</li>
-    <li><strong>广告标识符</strong>：我们不采集 IDFA 或任何广告标识符。</li>
-  </ul>
+<main>
 
-  <h2>三、手写体 AI 识别说明</h2>
-  <p>当您使用手写体 AI 识别功能时，图片会加密传输至我们的服务器进行处理。处理完成后图片不作任何留存。</p>
+  <!-- 导读 -->
+  <div class="highlight">
+    本政策适用于「扫描鸡」iOS 应用程序（以下简称"本应用"）及 VMing Studio 提供的相关服务。我们深知隐私对您的重要性，本文将清晰说明我们收集哪些数据、如何使用、如何保护，以及您拥有哪些权利。
+  </div>
 
-  <h2>四、信息如何使用</h2>
-  <ul>
-    <li>手机号和 UID 仅用于账号登录、订阅状态验证、找回账号。</li>
-    <li>不用于广告投放、不对外出售、不与第三方共享。</li>
-  </ul>
+  <!-- 目录 -->
+  <div class="toc">
+    <div class="toc-title">目录 · Contents</div>
+    <ol>
+      <li><a href="#s1">我们收集的信息</a></li>
+      <li><a href="#s2">我们不收集的信息</a></li>
+      <li><a href="#s3">信息的使用方式</a></li>
+      <li><a href="#s4">信息共享与披露</a></li>
+      <li><a href="#s5">第三方服务</a></li>
+      <li><a href="#s6">数据存储与安全</a></li>
+      <li><a href="#s7">数据保留期限</a></li>
+      <li><a href="#s8">您的权利</a></li>
+      <li><a href="#s9">订阅与 App Store</a></li>
+      <li><a href="#s10">未成年人保护</a></li>
+      <li><a href="#s11">跨境数据传输</a></li>
+      <li><a href="#s12">隐私政策变更</a></li>
+      <li><a href="#s13">联系我们</a></li>
+    </ol>
+  </div>
 
-  <h2>五、数据存储与安全</h2>
-  <ul>
-    <li>手机号采用加密方式存储于服务器。</li>
-    <li>登录凭证（Token）存储在您设备的 Keychain 中，90天有效期。</li>
-    <li>我们采取合理的技术措施保护您的数据安全。</li>
-  </ul>
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="sec-num">01</span>我们收集的信息</h2>
+    <p>为了提供正常的注册、登录和订阅管理功能，我们收集以下信息：</p>
 
-  <h2>六、第三方服务</h2>
-  <p>我们使用阿里云短信服务（dypnsapi）发送验证码，阿里云隐私政策请参见：</p>
-  <p><a href="https://terms.aliyun.com/legal-agreement/terms/privacy">https://terms.aliyun.com/legal-agreement/terms/privacy</a></p>
-  <p>手写体识别使用 AI 大语言模型接口，图片仅用于识别处理，不作留存。</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>数据类型</th>
+          <th>收集原因</th>
+          <th>是否上传服务器</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>手机号码</td>
+          <td>注册与登录身份验证</td>
+          <td class="yes">是（加密存储）</td>
+        </tr>
+        <tr>
+          <td>用户标识符（UID）</td>
+          <td>账号管理与订阅状态核验</td>
+          <td class="yes">是</td>
+        </tr>
+        <tr>
+          <td>设备匿名标识符</td>
+          <td>未登录状态下统计免费使用次数</td>
+          <td class="yes">是（不关联个人身份）</td>
+        </tr>
+        <tr>
+          <td>App Store 收据</td>
+          <td>验证订阅购买状态</td>
+          <td class="yes">是（通过 Apple 接口）</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-  <h2>七、未成年人保护</h2>
-  <p>本应用不面向14岁以下未成年人。如您是未成年人，请在监护人同意下使用。</p>
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="sec-num">02</span>我们不收集的信息</h2>
+    <p>我们明确承诺，以下信息<strong>不会</strong>被收集或上传：</p>
+    <ul>
+      <li>📷 &nbsp;<strong>您拍摄的图片</strong> — 印刷体 OCR 识别在您设备本地完成，图片不离开设备。</li>
+      <li>📝 &nbsp;<strong>识别出的文字内容</strong> — 文字识别结果仅保存在您的手机本地，不上传。</li>
+      <li>📍 &nbsp;<strong>位置信息</strong> — 我们不申请、不使用地理位置权限。</li>
+      <li>📢 &nbsp;<strong>广告标识符（IDFA）</strong> — 我们不采集任何广告标识符。</li>
+      <li>👤 &nbsp;<strong>联系人、日历、相册等敏感权限</strong> — 仅在您主动授权拍照时访问相机。</li>
+    </ul>
+    <div class="highlight">
+      <strong>关于手写体 AI 识别：</strong>当您使用手写体 AI 识别功能时，图片将通过加密通道（HTTPS TLS 1.2+）传输至服务器处理。图片处理完成后立即删除，不作任何留存、训练或再利用。
+    </div>
+  </section>
 
-  <h2>八、您的权利</h2>
-  <ul>
-    <li>您可以在「我的」页面申请注销账号。</li>
-    <li>注销后，我们将删除您的手机号及相关数据。</li>
-  </ul>
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="sec-num">03</span>信息的使用方式</h2>
+    <p>我们收集的信息仅用于以下目的：</p>
+    <ul>
+      <li>验证用户身份，提供安全的账号登录与找回功能</li>
+      <li>核验您的订阅状态，解锁对应的会员权益</li>
+      <li>处理用户反馈与技术支持请求</li>
+      <li>检测和防范滥用行为，保障服务安全稳定</li>
+    </ul>
+    <p>我们<strong>不会</strong>将您的信息用于广告投放、行为分析、画像构建或任何与上述目的无关的用途。</p>
+  </section>
 
-  <h2>九、联系我们</h2>
-  <p>如有隐私相关问题，请发送邮件至：<a href="mailto:support@vmingstudio.com">support@vmingstudio.com</a></p>
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="sec-num">04</span>信息共享与披露</h2>
+    <p>我们不出售、不租借、不交换您的个人信息。仅在以下极少数情况下可能披露：</p>
+    <ul>
+      <li><strong>法律要求：</strong>依据适用法律、法规或有效的政府/司法命令要求披露时。</li>
+      <li><strong>保护权益：</strong>为调查、阻止或采取行动应对非法活动、疑似欺诈或威胁任何人安全的情况。</li>
+      <li><strong>服务提供商：</strong>仅在本政策第五条列明的、处理数据所必须的第三方服务商之间共享，且受保密约束。</li>
+    </ul>
+  </section>
 
-  <h2>十、政策更新</h2>
-  <p>我们可能不定期更新本政策，重大变更会在应用内通知您。继续使用本应用即表示您同意更新后的政策。</p>
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="sec-num">05</span>第三方服务</h2>
+    <p>本应用使用以下第三方服务，各自适用其独立的隐私政策：</p>
+
+    <div class="card">
+      <div class="card-label">阿里云短信服务（Aliyun SMS）</div>
+      <p>用于发送手机验证码。您的手机号会经由阿里云基础设施传输。<br>
+      隐私政策：<a href="https://terms.aliyun.com/legal-agreement/terms/privacy" target="_blank">terms.aliyun.com/legal-agreement/terms/privacy</a></p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Apple App Store 内购（StoreKit）</div>
+      <p>用于处理订阅付款及收据验证。支付信息由 Apple 处理，我们不接触您的银行卡或支付账号信息。<br>
+      Apple 隐私政策：<a href="https://www.apple.com/legal/privacy/" target="_blank">apple.com/legal/privacy</a></p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">AI 大语言模型接口（手写识别）</div>
+      <p>当您使用手写体识别时，图片通过加密通道传至 AI 接口处理，处理后立即删除，不作留存。接口提供商依据其服务协议受保密约束。</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="sec-num">06</span>数据存储与安全</h2>
+    <ul>
+      <li>手机号以加密形式（哈希 + 加盐）存储于阿里云服务器，服务器位于中国大陆。</li>
+      <li>登录凭证（Token）存储在您设备的 iOS Keychain 中，有效期 90 天，到期自动失效。</li>
+      <li>所有网络通信采用 HTTPS（TLS 1.2 及以上）加密传输。</li>
+      <li>服务器访问受严格的身份验证和访问控制保护。</li>
+      <li>我们定期审查安全措施，并在发现漏洞时及时修复。</li>
+    </ul>
+    <p>尽管我们采取了合理的安全措施，但互联网传输和电子存储均无法保证绝对安全。如发生数据安全事件，我们将依法及时通知受影响的用户。</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="sec-num">07</span>数据保留期限</h2>
+    <ul>
+      <li><strong>账号数据</strong>（手机号、UID）：自您注销账号之日起 30 天内删除。</li>
+      <li><strong>设备匿名标识符</strong>：在您卸载应用或超过 365 天未活跃后清除。</li>
+      <li><strong>手写识别图片</strong>：处理完成后立即删除，不作留存。</li>
+      <li><strong>日志数据</strong>：用于安全审计的服务器日志最多保留 90 天。</li>
+    </ul>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <h2><span class="sec-num">08</span>您的权利</h2>
+    <p>根据适用的数据保护法律，您享有以下权利：</p>
+    <ul>
+      <li><strong>访问权：</strong>您可以随时请求查看我们持有的您的个人数据。</li>
+      <li><strong>更正权：</strong>如您的信息不准确，可要求我们予以更正。</li>
+      <li><strong>删除权（注销账号）：</strong>您可在应用内「我的」页面申请注销账号。注销后，我们将在 30 天内删除您的手机号及相关数据（法律要求保留的情形除外）。</li>
+      <li><strong>撤回同意权：</strong>您可随时停止使用本应用或注销账号，以撤回您对数据处理的同意。</li>
+      <li><strong>数据可携权：</strong>您可联系我们请求以通用格式导出您的个人数据。</li>
+    </ul>
+    <p>如需行使上述任何权利，请通过本政策末尾的联系方式联系我们，我们将在合理期限内（通常为 30 天）回复。</p>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="sec-num">09</span>订阅与 Apple App Store</h2>
+    <p>本应用通过 Apple App Store 提供自动续订订阅服务，相关规则如下：</p>
+    <ul>
+      <li>订阅费用通过您的 Apple ID 账户扣款，Apple 处理全部支付流程。</li>
+      <li>订阅将在到期前 24 小时自动续费，除非您提前取消。</li>
+      <li>取消方式：前往 iOS「设置」→「Apple ID」→「订阅」→ 选择「扫描鸡」→「取消订阅」。</li>
+      <li>我们无法访问您的信用卡号、Apple Pay 或其他支付凭据；Apple 仅向我们提供收据验证信息。</li>
+    </ul>
+    <p>订阅及内购同时受 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple 最终用户许可协议（EULA）</a> 约束。</p>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <h2><span class="sec-num">10</span>未成年人保护</h2>
+    <p>本应用不面向 14 周岁以下未成年人。我们不会有意收集未成年人的个人信息。</p>
+    <p>如果您是未成年人，请在监护人的监督和同意下使用本应用。如果我们发现无意中收集了未成年人信息，将立即删除相关数据。如您认为我们可能收集了未成年人信息，请立即联系我们。</p>
+  </section>
+
+  <!-- 11 -->
+  <section id="s11">
+    <h2><span class="sec-num">11</span>跨境数据传输</h2>
+    <p>本应用的服务器位于中国大陆。如果您在中国大陆以外的地区使用本应用，您的数据将被传输至中国大陆存储和处理。使用本应用即表示您同意此传输。</p>
+    <p>我们将采取适当的保障措施，确保您的数据在传输和存储过程中受到与本政策一致的保护水平。</p>
+  </section>
+
+  <!-- 12 -->
+  <section id="s12">
+    <h2><span class="sec-num">12</span>隐私政策变更</h2>
+    <p>我们可能会不定期更新本隐私政策以反映业务或法律的变化。发生重大变更时，我们将通过以下方式通知您：</p>
+    <ul>
+      <li>在应用内发布显著通知</li>
+      <li>更新本页面顶部的「最后更新日期」</li>
+    </ul>
+    <p>我们鼓励您定期查阅本政策。在重大变更通知发出后继续使用本应用，即表示您接受更新后的政策。</p>
+  </section>
+
+  <!-- 13 -->
+  <section id="s13">
+    <h2><span class="sec-num">13</span>联系我们</h2>
+    <p>如对本隐私政策有任何疑问、意见或隐私权请求，请通过以下方式联系我们：</p>
+    <div class="card">
+      <div class="card-label">VMing Studio</div>
+      <p>
+        📧 隐私事务邮箱：<a href="mailto:support@vmingstudio.com">support@vmingstudio.com</a><br>
+        📧 客服邮箱：<a href="mailto:408350291@qq.com">408350291@qq.com</a><br>
+        🌐 官方网站：<a href="https://vmingstudio.com" target="_blank">vmingstudio.com</a>
+      </p>
+      <p style="margin-top:10px; font-size:13px; color:#888;">我们将在收到请求后 30 个工作日内回复。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="https://vmingstudio.com/terms">订阅服务协议</a>
+    &nbsp;·&nbsp;
+    <a href="https://vmingstudio.com/support.html">用户支持</a>
+    &nbsp;·&nbsp;
+    <a href="https://vmingstudio.com">VMing Studio</a>
+  </p>
+  <p style="margin-top:8px;">© 2026 VMing Studio. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

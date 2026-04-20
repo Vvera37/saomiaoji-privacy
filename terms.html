@@ -1,82 +1,423 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>扫描鸡 · 订阅服务协议</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>订阅服务协议 · 扫描鸡</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; line-height: 1.8; padding: 30px; max-width: 800px; margin: auto; color: #333; }
-    h1 { border-bottom: 2px solid #007AFF; padding-bottom: 10px; color: #222; }
-    h2 { color: #444; margin-top: 28px; font-size: 17px; }
-    ul { padding-left: 20px; }
-    p, li { margin: 8px 0; }
-    a { color: #007AFF; }
-    .updated { color: #888; font-size: 14px; }
-    .note { background: #f5f5f7; border-left: 3px solid #007AFF; padding: 10px 16px; border-radius: 4px; margin: 16px 0; font-size: 14px; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-soft: #444;
+      --ink-mute: #888;
+      --rule: #e0dbd3;
+      --bg: #faf8f5;
+      --bg-card: #fff;
+      --accent: #1a5c8e;
+      --accent-light: #eef4fb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      font-weight: 400;
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: #0f2744;
+      padding: 40px 0 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 40px,
+        rgba(255,255,255,.015) 40px, rgba(255,255,255,.015) 80px
+      );
+    }
+    .header-inner { position: relative; z-index: 1; }
+    .app-name {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .4em;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 8px;
+    }
+    header h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .06em;
+    }
+    .updated {
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.38);
+      letter-spacing: .08em;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    .intro-box {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      padding: 20px 24px;
+      margin-bottom: 44px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    /* Pricing cards */
+    .plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 480px) { .plans { grid-template-columns: 1fr; } }
+    .plan-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+    .plan-card.featured {
+      border-color: var(--accent);
+      position: relative;
+    }
+    .plan-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+    .plan-name {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .plan-price {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Noto Serif SC', serif;
+    }
+    .plan-price span { font-size: 14px; color: var(--ink-mute); font-weight: 400; }
+    .plan-note { font-size: 12px; color: var(--ink-mute); margin-top: 6px; }
+
+    /* Sections */
+    section {
+      margin-bottom: 48px;
+      scroll-margin-top: 24px;
+    }
+    section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .sec-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    p { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { padding-left: 20px; margin-bottom: 14px; }
+    li { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 6px; line-height: 1.8; }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+    .steps li {
+      counter-increment: step;
+      padding: 12px 14px 12px 48px;
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: 22px;
+      height: 22px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .warn-box {
+      background: #fff8e1;
+      border-left: 3px solid #f0ad00;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: #5a4200;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 460px) { .benefits { grid-template-columns: 1fr; } }
+    .benefit-item {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+    .benefit-item strong { color: var(--ink); display: block; margin-bottom: 2px; }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--rule);
+      font-size: 12.5px;
+      color: var(--ink-mute);
+      line-height: 2;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
   </style>
 </head>
 <body>
-  <h1>扫描鸡 订阅服务协议</h1>
-  <p class="updated">生效日期：2026年4月5日</p>
 
-  <p>欢迎使用「扫描鸡」提供的会员订阅服务（以下简称"本服务"）。在您订阅之前，请务必仔细阅读本协议。一旦您确认订阅，即视为您已完全理解并接受以下所有条款。</p>
-
-  <h2>一、服务内容与权益</h2>
-  <p><strong>服务描述：</strong>订阅本服务后，您将获得以下专属会员权益：</p>
-  <ul>
-    <li>AI 手写识别无限次（印刷体 + 手写体）</li>
-    <li>图片转 PDF 无限次</li>
-    <li>PDF 转 Word 无限次</li>
-    <li>导出文件无水印</li>
-    <li>历史记录保留最近 20 条</li>
-  </ul>
-  <p><strong>服务期限：</strong>订阅周期分为月度（1 个月）和年度（1 年），具体以您购买时选择的套餐为准。</p>
-
-  <h2>二、费用与支付</h2>
-  <p><strong>价格：</strong></p>
-  <ul>
-    <li>月度会员：¥3.00/月</li>
-    <li>年度会员：¥12.00/年</li>
-  </ul>
-  <p>价格以 App 内实际显示为准，可能因促销活动或地区差异有所不同，最终价格以支付确认页面为准。</p>
-  <p><strong>支付方式：</strong>所有费用将通过您的 Apple ID 账户进行扣款，由 Apple App Store 处理。</p>
-
-  <h2>三、自动续订与续费</h2>
-  <p><strong>自动续订：</strong>本服务为自动续订服务。在当前订阅期结束前，苹果将自动从您的 Apple ID 账户扣费以延续订阅。</p>
-  <p><strong>扣费时间：</strong>苹果会在当前订阅期结束前 24 小时内进行续费扣款，扣款成功后订阅期顺延一个周期。</p>
-  <p><strong>价格变动：</strong>如订阅价格发生变动，苹果会通过系统通知您，您需重新确认接受新价格，否则自动续订将停止。</p>
-
-  <h2>四、取消订阅与管理</h2>
-  <p><strong>如何取消：</strong>您可以随时在 iOS 系统「设置」中取消订阅，路径为：</p>
-  <div class="note">
-    设置 → [您的姓名 / Apple ID] → 订阅 → 选择「扫描鸡」→ 点击「取消订阅」
+<header>
+  <div class="header-inner">
+    <div class="app-name">扫描鸡 · ScanJi</div>
+    <h1>订阅服务协议</h1>
+    <div class="updated">Subscription Terms &nbsp;·&nbsp; 生效日期：2026年4月20日</div>
   </div>
-  <p><strong>截止时限：</strong>如希望停止自动续订，请务必在当前订阅期结束前至少 24 小时手动取消。</p>
-  <p><strong>生效时间：</strong>取消操作完成后，您当前的会员权益将持续有效至该周期的最后一天。已支付的费用不予退还，已使用部分同样不退还。</p>
+</header>
 
-  <h2>五、退款说明</h2>
-  <p>订阅一经确认，当前周期费用不予退还。如需申请退款，请直接联系苹果客服，退款由 Apple 依据其政策处理，与 VMing Studio 无关。</p>
+<main>
 
-  <h2>六、Apple 最终用户许可协议</h2>
-  <p>本服务通过 Apple App Store 内购处理，同时受 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Apple 最终用户许可协议（EULA）</a>约束。</p>
+  <div class="intro-box">
+    欢迎使用「扫描鸡」会员订阅服务。在您订阅之前，请务必仔细阅读本协议。一旦您确认订阅，即表示您已完全理解并同意接受本协议所有条款，以及适用的 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple 最终用户许可协议（EULA）</a>。
+  </div>
 
-  <h2>七、隐私与数据安全</h2>
-  <p>我们高度重视您的个人隐私。关于我们如何收集和使用您的信息，请查阅 <a href="/privacy.html">《隐私政策》</a>。</p>
+  <!-- 服务内容 -->
+  <section id="s1">
+    <h2><span class="sec-num">01</span>服务内容与会员权益</h2>
+    <p>订阅「扫描鸡」会员后，您将解锁以下专属权益：</p>
+    <div class="benefits">
+      <div class="benefit-item"><strong>🤖 AI 手写识别无限次</strong>印刷体 + 手写体均可识别</div>
+      <div class="benefit-item"><strong>📄 图片转 PDF 无限次</strong>高质量批量转换</div>
+      <div class="benefit-item"><strong>📝 PDF 转 Word 无限次</strong>保留原始排版格式</div>
+      <div class="benefit-item"><strong>💧 导出文件无水印</strong>干净整洁的输出文件</div>
+      <div class="benefit-item"><strong>📚 历史记录保留 20 条</strong>随时查阅过去的识别结果</div>
+      <div class="benefit-item"><strong>⚡ 优先处理队列</strong>会员任务优先处理</div>
+    </div>
+    <p>具体权益以应用内最新展示为准，我们可能不定期增加或调整权益内容。</p>
+  </section>
 
-  <h2>八、协议变更</h2>
-  <p>我们保留修改本协议的权利。重大变更会通过应用内通知告知您，继续使用本服务即表示您接受修改后的协议。</p>
+  <!-- 订阅套餐与价格 -->
+  <section id="s2">
+    <h2><span class="sec-num">02</span>订阅套餐与价格</h2>
 
-  <h2>九、联系我们</h2>
-  <p>如对本协议有任何疑问或需要帮助，请通过以下方式联系：</p>
-  <ul>
-    <li>客服邮箱：<a href="mailto:408350291@qq.com">408350291@qq.com</a></li>
-    <li>官方网站：<a href="https://vmingstudio.com">vmingstudio.com</a></li>
-  </ul>
+    <div class="plans">
+      <div class="plan-card">
+        <div class="plan-name">月度会员</div>
+        <div class="plan-price">¥3.00<span>/月</span></div>
+        <div class="plan-note">每月自动续订</div>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">推荐</div>
+        <div class="plan-name">年度会员</div>
+        <div class="plan-price">¥12.00<span>/年</span></div>
+        <div class="plan-note">相当于每月 ¥1.00，节省 67%</div>
+      </div>
+    </div>
 
-  <p style="margin-top: 30px;">
-    <a href="/privacy.html">隐私政策</a>
+    <p>以上价格以人民币标注，最终价格以您购买时 App Store 支付确认页面显示为准，可能因地区或促销活动有所不同。</p>
+    <p><strong>支付方式：</strong>所有费用通过您的 Apple ID 账户扣款，由 Apple App Store 统一处理，VMing Studio 不直接处理任何支付信息。</p>
+  </section>
+
+  <!-- 自动续订 -->
+  <section id="s3">
+    <h2><span class="sec-num">03</span>自动续订说明</h2>
+    <div class="warn-box">
+      ⚠️ 本服务为<strong>自动续订订阅</strong>。订阅确认后，将在每个订阅期结束前 24 小时内自动扣款续费，除非您提前取消。
+    </div>
+    <ul>
+      <li><strong>续费时间：</strong>Apple 将在当前订阅期结束前 24 小时内自动扣款。</li>
+      <li><strong>续费金额：</strong>与当前订阅套餐价格一致。如有价格变动，Apple 会提前通知并要求您确认，否则自动续订将停止。</li>
+      <li><strong>扣款账户：</strong>与您 Apple ID 绑定的付款方式。</li>
+      <li><strong>免费试用：</strong>如提供免费试用期，试用期结束后将自动开始收费，如不希望续费请在试用期结束前 24 小时取消。</li>
+    </ul>
+  </section>
+
+  <!-- 取消订阅 -->
+  <section id="s4">
+    <h2><span class="sec-num">04</span>如何取消订阅</h2>
+    <p>您可以随时取消订阅，取消后不再续费，当前订阅周期内的权益继续有效至到期日。</p>
+    <p><strong>取消步骤（iOS）：</strong></p>
+    <ol class="steps">
+      <li>打开 iPhone「设置」</li>
+      <li>点击顶部您的姓名 / Apple ID</li>
+      <li>选择「订阅」</li>
+      <li>找到并点击「扫描鸡」</li>
+      <li>点击「取消订阅」并确认</li>
+    </ol>
+    <div class="warn-box">
+      ⚠️ 请务必在当前订阅期<strong>结束前至少 24 小时</strong>完成取消操作，否则将触发下一个周期的自动扣款。
+    </div>
+    <p>取消订阅后，您的会员权益将持续至当前订阅周期的最后一天。到期后自动恢复为免费版。</p>
+  </section>
+
+  <!-- 退款 -->
+  <section id="s5">
+    <h2><span class="sec-num">05</span>退款政策</h2>
+    <p>由于订阅服务通过 Apple App Store 进行，所有退款事宜均由 Apple 依据其退款政策处理，VMing Studio 无法直接处理退款请求。</p>
+    <p><strong>如需申请退款，请通过以下方式联系 Apple：</strong></p>
+    <ul>
+      <li>访问 <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a> 提交退款申请</li>
+      <li>或联系 <a href="https://support.apple.com" target="_blank">Apple 客服支持</a></li>
+    </ul>
+    <p>订阅一经确认，当前周期费用原则上不予退还，最终以 Apple 退款政策为准。</p>
+  </section>
+
+  <!-- 订阅管理与账号 -->
+  <section id="s6">
+    <h2><span class="sec-num">06</span>账号与订阅管理</h2>
+    <ul>
+      <li>订阅状态与您的 Apple ID 及「扫描鸡」账号绑定。</li>
+      <li>您的订阅权益仅限本人在已授权设备上使用，不可转让或共享。</li>
+      <li>如更换设备，在同一 Apple ID 下重新登录即可恢复订阅权益。</li>
+      <li>注销「扫描鸡」账号不等同于取消订阅，请在注销前先取消 App Store 订阅。</li>
+    </ul>
+  </section>
+
+  <!-- 服务变更与终止 -->
+  <section id="s7">
+    <h2><span class="sec-num">07</span>服务变更与终止</h2>
+    <p>我们保留以下权利：</p>
+    <ul>
+      <li>对订阅价格进行调整，调整前将通过 Apple 系统或应用内通知提前告知。</li>
+      <li>增加、修改或终止部分会员权益；重大变更前将提前通知。</li>
+      <li>在以下情形下暂停或终止您的订阅服务：违反本协议条款、存在欺诈行为、或依法律要求。</li>
+    </ul>
+    <p>如我们因不可抗力或业务终止而停止服务，将尽力提前通知并协助用户通过 Apple 申请未使用订阅期的退款。</p>
+  </section>
+
+  <!-- Apple EULA -->
+  <section id="s8">
+    <h2><span class="sec-num">08</span>Apple 最终用户许可协议</h2>
+    <p>本应用通过 Apple App Store 分发，同时受 Apple 最终用户许可协议（EULA）约束。</p>
+    <p>如本协议与 Apple EULA 存在冲突，以 Apple EULA 为准。</p>
+    <p>Apple EULA 全文：<a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">apple.com/legal/internet-services/itunes/dev/stdeula/</a></p>
+    <p><strong>Apple 作为本应用的分发平台，不对本应用内容及订阅服务承担责任。如有使用问题，请直接联系 VMing Studio。</strong></p>
+  </section>
+
+  <!-- 隐私政策 -->
+  <section id="s9">
+    <h2><span class="sec-num">09</span>隐私保护</h2>
+    <p>我们高度重视您的个人隐私。关于我们如何收集、使用和保护您的个人信息，请查阅我们的完整隐私政策：</p>
+    <p><a href="https://vmingstudio.com/privacy.html" target="_blank" style="font-size:15px; font-weight:600;">→ 查看《扫描鸡隐私政策》</a></p>
+  </section>
+
+  <!-- 免责声明 -->
+  <section id="s10">
+    <h2><span class="sec-num">10</span>免责声明</h2>
+    <ul>
+      <li>本服务按「现状」提供，我们不对 OCR 识别准确率作出任何保证。</li>
+      <li>因网络故障、设备问题或不可抗力导致的服务中断，我们不承担赔偿责任，但会尽力恢复服务。</li>
+      <li>您应自行备份重要文件，我们不对因使用本应用导致的数据丢失承担责任。</li>
+    </ul>
+  </section>
+
+  <!-- 协议变更 -->
+  <section id="s11">
+    <h2><span class="sec-num">11</span>协议变更</h2>
+    <p>我们保留修改本协议的权利。重大变更将通过应用内通知或本页面更新告知您。</p>
+    <p>变更通知发出后继续使用本服务，即视为您同意接受修改后的协议。如不同意，请取消订阅并停止使用。</p>
+  </section>
+
+  <!-- 法律适用 -->
+  <section id="s12">
+    <h2><span class="sec-num">12</span>法律适用与争议解决</h2>
+    <p>本协议受中华人民共和国法律管辖。如因本协议产生争议，双方应首先友好协商解决；协商不成的，提交本公司所在地有管辖权的人民法院诉讼解决。</p>
+  </section>
+
+  <!-- 联系我们 -->
+  <section id="s13">
+    <h2><span class="sec-num">13</span>联系我们</h2>
+    <p>如对本协议有任何疑问，请联系：</p>
+    <ul>
+      <li>📧 客服邮箱：<a href="mailto:408350291@qq.com">408350291@qq.com</a></li>
+      <li>📧 官方邮箱：<a href="mailto:support@vmingstudio.com">support@vmingstudio.com</a></li>
+      <li>🌐 官方网站：<a href="https://vmingstudio.com" target="_blank">vmingstudio.com</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="https://vmingstudio.com/privacy.html">隐私政策</a>
     &nbsp;·&nbsp;
-    <a href="/support.html">用户支持</a>
+    <a href="https://vmingstudio.com/support.html">用户支持</a>
+    &nbsp;·&nbsp;
+    <a href="https://vmingstudio.com">VMing Studio</a>
   </p>
+  <p style="margin-top:8px;">© 2026 VMing Studio. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
